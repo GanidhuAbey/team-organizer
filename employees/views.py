@@ -1,14 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.http import JsonResponse
 from json import dumps
 #import model data
 from . import models
 
-#TODO: can probably converge index and add page into one function using class generics
-
+#TODO: generalize display_page, add_page, and edit_page in a class-based generic
 # Create your views here.
-def index(request):
+def display_page(request):
     #check how many team members we have
     all_team_members = models.TeamMember.objects.all()
     team_count = all_team_members.count()
@@ -18,6 +16,11 @@ def index(request):
 
     return render(request, 'display.html', context={"teamCount" : str(team_count), "dataTeam" : json_string})
 
+def add_page(request):
+    return render(request, 'add.html')
+
+def edit_page(request):
+    return render(request, 'edit.html')
 
 def add_team_member(request):
     #every time update team count is called we need to add a team member
@@ -29,5 +32,3 @@ def add_team_member(request):
     return redirect('/employees/display/')
 
 #render add member form
-def add_page(request):
-    return render(request, 'add.html')
