@@ -1,0 +1,47 @@
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+
+    <style>
+        .listPage { 
+            background-color: #fefffe;
+            text-align: center;
+            color: black;
+            font-family: "Roboto", roboto;
+            padding: 50px;
+        }
+
+        .subTitle {
+            color: #babfbf;
+            opacity: 0.5;
+        }
+
+        .inputText {
+            font-family: "Roboto", roboto;
+        }
+
+        .inputText::placeholder {
+            color:grey;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<html>
+    <body style="background-color: #f3f2f2;">
+    <div class="listPage">
+        <h2> Add a Team Member </h2>
+        <div class=subTitle>
+            <h4> set email, location, and role </h4>
+        </div>
+		<form action='push' method='GET'>
+            <input class="inputText" type="text" id="fname" name="fname" placeholder="First Name"><br><br>
+            <input class="inputText" type="text" id="lname" name="lname" placeholder="Last Name"><br><br>
+            <input class="inputText" type="email" id="email" name="email" placeholder="name@example.com"><br><br>
+			<button type="submit"> create team member </button>
+   		</form> 
+	</div>
+    </body>
+</html>

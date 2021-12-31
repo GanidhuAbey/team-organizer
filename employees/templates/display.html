@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+
+    <style>
+        .listPage { 
+            background-color: #fefffe;
+            text-align: center;
+            color: black;
+            font-family: "Roboto", roboto;
+            padding: 50px;
+        }
+
+        .subTitle {
+            color: #babfbf;
+        }
+
+        .teamMember {
+            border-left: #fefffe;
+            border-right: #fefffe;
+            border-top: #babfbf;
+            border-bottom: #fefffe;
+            border-style: solid;
+            padding: 5px;
+            margin: 10px;
+        }
+
+        .profilePicture {
+            width:50px;
+            height:50px;
+        }
+
+    </style>
+</head>
+
+<html>
+    <body style="background-color: #f3f2f2;">
+    <div id="list" class="listPage">
+        <h2> Team Members </h2>
+        <div class=subTitle>
+            <h4> there are {{teamCount}} team members</h4>
+        </div>
+        <script>
+            var data = "{{dataTeam}}";
+            data = JSON.parse(data.replace(/&quot;/g, '"'));
+            
+            var data_size = Object.keys(data);
+        
+            //add one name into its own div within teamMember
+            for (var i = 0; i < data_size.length; i++) {
+                var member_div = document.createElement("div");
+                member_div.classList.add("teamMember");
+                var name_para = document.createElement("b");
+                //name_para.classList.add("nameText");
+
+                user_admin = true;
+                var member_name = document.createTextNode(data[i].first_name + " " + data[i].last_name); 
+                name_para.appendChild(member_name);
+                if (user_admin) {
+                    var admin_text = document.createTextNode(" (admin)");
+                    name_para.appendChild(admin_text);
+                }
+                var phone_para = document.createElement("p");
+                var phone_number = document.createTextNode("999-999-999"); 
+                phone_para.appendChild(phone_number);
+                var email = document.createTextNode(data[i].email);
+
+                member_div.appendChild(name_para);
+                member_div.appendChild(phone_para);
+                member_div.appendChild(email);
+
+
+                member_profile = document.createElement("section");
+                member_image = document.createElement("img");
+                image_url = "employees/images/" + data[i].profile_picture;
+                member_image.src = "{% static 'employees/images/profile.webp' %}";
+                member_image.classList.add("profilePicture");
+
+                console.log(member_image.src);
+
+                member_profile.appendChild(member_image);
+                member_div.appendChild(member_profile);
+
+
+                var current_div = document.getElementById("end");
+                var inner_div = document.getElementById("list");
+
+                inner_div.appendChild(member_div);
+            }
+        </script>  
+      
+        <div id=end></div>
+		<form id="submit_data" action='add' method='GET'>
+			<button type="submit"> create team member </button>
+   		</form> 
+	</div>
+    </body>
+</html>
