@@ -1,3 +1,50 @@
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+
+    <style>
+        .listPage { 
+            background-color: #fefffe;
+            text-align: center;
+            color: black;
+            font-family: "Roboto", roboto;
+            padding: 50px;
+        }
+
+        .subTitle {
+            color: #babfbf;
+            opacity: 0.5;
+        }
+
+        .inputText {
+            font-family: "Roboto", roboto;
+        }
+
+        .inputText::placeholder {
+            color:grey;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
 <html>
-  <h1> HELLO </h1>
+    <body style="background-color: #f3f2f2;">
+    <div class="listPage">
+      <h2> Edit Team Member` </h2>
+      <div class=subTitle>
+        <h4> Edit contact info, location, and role. </h4>
+      </div>
+      <form action='push' method='POST'> {% csrf_token %}
+        <input class="inputText" type="text" id="fname" name="fname" value="{{fname}}"><br><br>
+        <input class="inputText" type="text" id="lname" name="lname" value="{{lname}}"><br><br>
+        <input class="inputText" type="email" id="email" name="email" value="{{email}}"><br><br>
+        <input type="hidden" name="member_index" value="{{member_index}}">
+        <input type="submit" name="update_button" value="update">
+        <input type="submit" name="delete_button" value="delete">
+      </form> 
+    </div>
+  </body>
 </html>

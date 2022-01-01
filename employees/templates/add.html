@@ -36,12 +36,12 @@
         <div class=subTitle>
             <h4> set email, location, and role </h4>
         </div>
-		<form action='push' method='GET'>
-            <input class="inputText" type="text" id="fname" name="fname" placeholder="First Name"><br><br>
-            <input class="inputText" type="text" id="lname" name="lname" placeholder="Last Name"><br><br>
-            <input class="inputText" type="email" id="email" name="email" placeholder="name@example.com"><br><br>
+		<form action='push' method='POST'> {% csrf_token %}
+      <input class="inputText" type="text" id="fname" name="fname" placeholder="First Name"><br><br>
+      <input class="inputText" type="text" id="lname" name="lname" placeholder="Last Name"><br><br>
+      <input class="inputText" type="email" id="email" name="email" placeholder="name@example.com"><br><br>
 			<button type="submit"> create team member </button>
-   		</form> 
+  	</form> 
 	</div>
     </body>
 </html>

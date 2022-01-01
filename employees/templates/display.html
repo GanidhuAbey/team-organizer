@@ -111,7 +111,15 @@
 
           var button_text = document.createTextNode("edit");
           member_edit_button.appendChild(button_text);
+ 
+          //add member index as hidden form input
+          var member_index = document.createElement("input");
+          member_index.id = "member_index";
+          member_index.type = "hidden";
+          member_index.name = "member_index";
+          member_index.value = String(i + 1);
 
+          member_edit.appendChild(member_index);
           member_edit.appendChild(member_edit_button);
 
           member_div.appendChild(member_edit);
