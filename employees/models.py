@@ -10,7 +10,7 @@ class TeamMember(models.Model):
     last_name = models.TextField(max_length=200)
 
     #not sure if we need to keep track of the internation code?
-    phone_regex = RegexValidator(regex=r'([+][0-9])?[-| ]?[0-9]{3}[-| ]?[0-9]{3}[-| ]?[0-9]{4}$', message="Invalid phone number")
+    phone_regex = RegexValidator(regex=r'^(([+]?[0-9])|([+][0-9]?))?[-| ]?[0-9]{3}[-| ]?[0-9]{3}[-| ]?[0-9]{4}$', message="Invalid phone number")
     phone_number = models.CharField(validators=[phone_regex], default="0", max_length=17)
     email = models.EmailField(max_length = 254, default="test@example.com")
 

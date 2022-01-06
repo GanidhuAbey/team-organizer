@@ -54,7 +54,7 @@ def edit_page(request):
             if (role == "0"):
                 role = ""
             member_index = request.POST['member_index']
-            return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "role" : role, "member_index" : member_index, "formData": update_member.errors.as_json()}) 
+            return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "role" : role, "member_index" : member_index, "formData": update_member.errors.as_json()}, status=400) 
 
         return redirect(reverse("display"))
 
