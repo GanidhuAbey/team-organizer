@@ -41,6 +41,16 @@
       <div class="grid place-content-center">
         <p class="text-xl font-bold p-5"> Role </p>
         <div class="text-left">
+          {% if "{{role}}" %}
+          <div id="regular-button" class="grid grid-cols-2 border-b-4 p-1"> 
+            <div class="text-left"> <label class="text-slate-500" for="regular" id="regular-label"> Regular - Can't Delete Members </label> </div>
+            <div class="text-right"> <input checked type="radio" class="text-center peer" id="regular" name="role" value=0> </div>
+          </div> 
+          <div id="admin-button" class="grid grid-cols-2 border-b-4 p-1"> 
+            <div class="text-left"><label id="admin-label" for="admin" class="text-black"> Admin - Can Delete Members</label></div>
+            <div class="text-right"><input type="radio" class="text-center peer" id="admin" name="role" checked="checked" value=1> <br> </div>
+          </div> 
+          {% else %}
           <div id="regular-button" class="grid grid-cols-2 border-b-4 p-1"> 
             <div class="text-left"> <label class="text-black" for="regular" id="regular-label"> Regular - Can't Delete Members </label> </div>
             <div class="text-right"> <input checked type="radio" class="text-center peer" id="regular" name="role" checked="checked" value=0> </div>
@@ -50,6 +60,7 @@
             <div class="text-right"><input type="radio" class="text-center peer" id="admin" name="role" value=1> <br> </div>
           </div> 
           <br>
+          {% endif %}
         </div>
 
         <script>

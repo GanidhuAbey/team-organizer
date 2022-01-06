@@ -50,8 +50,9 @@ def edit_page(request):
             last_name = member.last_name;
             phone_number = member.phone_number;
             email = member.email;
+            role = member.role;
             member_index = request.POST['member_index']
-            return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "member_index" : member_index, "formData": update_member.errors.as_json()}) 
+            return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "role" : role, "member_index" : member_index, "formData": update_member.errors.as_json()}) 
 
         return redirect(reverse("display"))
 
@@ -62,5 +63,6 @@ def edit_page(request):
     last_name = member.last_name;
     phone_number = member.phone_number;
     email = member.email;
-    return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "member_index" : member_index}) 
+    role = member.role;
+    return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "member_index" : member_index, "role" : role}) 
 
