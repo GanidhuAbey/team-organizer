@@ -1,0 +1,49 @@
+<!doctype html>
+
+{% load static %}
+
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'employees/css/styles.css' %}">
+<head>
+</head>
+<body>
+  <div class="font-body text-center p-10">
+    <div class="flex justify-between border-b-4 p-10">
+      <div></div>
+      <div>
+        <h2 class="text-3xl"> Team Members </h2>
+        <h4 class="text-xs text-slate-500"> You have {{teamCount}} team members </h4>
+      </div>
+      <div>
+        <form id="add_data" action="add" method="GET">
+          <button type="submit">
+            <svg class="h-8 w-8 text-slate-500 text-xs"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>  
+    {% for members in object_list %}   
+    <form id="submit_data" action="edit" method="GET">
+      <div class="border-b-4">
+        <input type="hidden" id="member_index" name="member_index" value={{members.member_index}}>
+        <button type="submit" class="flex flex-row space-x-5 p-10 hover:cursor-pointer w-[85rem]">
+          <img class="object-contain h-20 w-20 rounded-full" src="{% static 'employees/images/profile.webp' %}">
+          <div class="text-left space-y-1">
+            {% if members.role %}
+            <p class="font-bold"> {{members.first_name}} {{members.last_name}} (admin) </p>
+            {% else %}
+            <p class="font-bold"> {{members.first_name}} {{members.last_name}} </p>
+            {% endif %} 
+            <p class="text-slate-500"> {{members.phone_number}} </p>
+            <p class="text-slate-500"> {{members.email}} </p>
+          </div>
+        </button>
+      </div>
+    </form>
+    {% endfor %}
+</body>
+</html>

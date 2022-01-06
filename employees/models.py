@@ -1,7 +1,10 @@
 from django.db import models
+from django.forms import ModelForm
 # Create your models here.
 
 class TeamMember(models.Model):
+    member_index = models.BigAutoField(primary_key=True)
+
     first_name = models.TextField(max_length=200)
     last_name = models.TextField(max_length=200)
 
@@ -17,3 +20,8 @@ class TeamMember(models.Model):
 
     role = models.IntegerField(Role.choices, default=0)
 
+
+class TeamMemberForm(ModelForm):
+    class Meta:
+        model = TeamMember
+        fields = ['member_index', 'first_name', 'last_name', 'phone_number', 'email', 'role'] #add role, profile icon not in scope of project

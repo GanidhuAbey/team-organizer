@@ -1,47 +1,115 @@
-<head>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+<!doctype html>
 
-    <style>
-        .listPage { 
-            background-color: #fefffe;
-            text-align: center;
-            color: black;
-            font-family: "Roboto", roboto;
-            padding: 50px;
-        }
-
-        .subTitle {
-            color: #babfbf;
-            opacity: 0.5;
-        }
-
-        .inputText {
-            font-family: "Roboto", roboto;
-        }
-
-        .inputText::placeholder {
-            color:grey;
-            text-align: center;
-        }
-    </style>
-</head>
+{% load static %}
 
 <html>
-    <body style="background-color: #f3f2f2;">
-    <div class="listPage">
-        <h2> Add a Team Member </h2>
-        <div class=subTitle>
-            <h4> set email, location, and role </h4>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'employees/css/styles.css' %}">
+</head>
+<body onload="return checkErrors()" style="background-color: #f3f2f2;">
+  <div class="text-center font-body p-10">
+    <div class="border-b-4 p-10">
+      <div>
+        <h2 class="text-3xl"> Add a Team Member </h2>
+        <h4 class="text-xs text-slate-500"> Set email, location and role. </h4> 
+      </div>
+    <form action='.' method='POST'> {% csrf_token %}
+      <div class="grid place-content-center border-b-4">
+        <p class="text-xl font-bold py-2 px-1"> Info </p>
+        <div class="p-1">
+          <div id="first_name" class="flex">
+            <div>
+              <input class="text-left py-2 px-5 rounded shadow text-slate-500" type="text" id="fname" name="first_name" placeholder="First Name"><br>
+            </div> 
+          </div> 
+          <br>
+          <div id="last_name" class="flex">
+            <div> <input class="text-left py-2 px-5 rounded shadow text-slate-500" type="text" id="lname" name="last_name" placeholder="Last Name"><br> </div>
+          </div> 
+          <br>
+          <div id="phone_number" class="flex">
+            <div> <input class="text-left py-2 px-5 rounded shadow text-slate-500" type="text" id="pnum" name="phone_number" placeholder="Phone Number"><br> </div>
+          </div>
+          <br>
+          <div id="email" class="flex">
+            <div> <input class="text-left py-2 px-5 rounded shadow text-slate-500" type="email" id="email" name="email" placeholder="Email"><br> </div>
+          </div>
+          <br>
         </div>
-		<form action='push' method='POST'> {% csrf_token %}
-      <input class="inputText" type="text" id="fname" name="fname" placeholder="First Name"><br><br>
-      <input class="inputText" type="text" id="lname" name="lname" placeholder="Last Name"><br><br>
-      <input class="inputText" type="email" id="email" name="email" placeholder="name@example.com"><br><br>
-			<button type="submit"> create team member </button>
-  	</form> 
-	</div>
-    </body>
+      </div>
+      
+      <div class="grid place-content-center">
+        <p class="text-xl font-bold p-5"> Role </p>
+        <div class="text-left">
+          <div id="regular-button" class="grid grid-cols-2 border-b-4 p-1"> 
+            <div class="text-left"> <label class="text-black" for="regular" id="regular-label"> Regular - Can't Delete Members </label> </div>
+            <div class="text-right"> <input checked type="radio" class="text-center peer" id="regular" name="role" checked="checked" value=0> </div>
+          </div> 
+          <div id="admin-button" class="grid grid-cols-2 border-b-4 p-1"> 
+            <div class="text-left"><label id="admin-label" for="admin" class="text-slate-500"> Admin - Can Delete Members</label></div>
+            <div class="text-right"><input type="radio" class="text-center peer" id="admin" name="role" value=1> <br> </div>
+          </div> 
+          <br>
+        </div>
+
+        <script>
+          function checkErrors() {
+            var errorData = "{{formData}}";
+            if (errorData === "") {}
+            else {
+              errorData = JSON.parse(errorData.replace(/&quot;/g, '"'));
+              var data = Object.keys(errorData);
+              for (var i = 0; i < data.length; i++) {
+                //grab element associated with error
+                var error_from = document.getElementById(data[i]);
+                var error_msg = document.createElement("ul");
+                error_msg.classList.add("px-4");
+                error_msg.classList.add("text-red-400");
+                messages = errorData[data[i]]
+                for (var j = 0; j < messages.length; j++) {
+                  var error = document.createElement("li");
+                  var msg = document.createTextNode(messages[j].message);
+                  error.appendChild(msg);
+                  error_msg.appendChild(error);
+                } 
+                error_from.appendChild(error_msg);
+              }
+            }
+          }
+
+          var admin_button = document.getElementById("admin");
+          var regular_button = document.getElementById("regular");
+
+          document.getElementById("regular-button").onclick = function() {
+                    regular_button.checked = true; 
+                    document.getElementById("regular-label").classList.remove("text-slate-500");
+                    document.getElementById("regular-label").classList.add("text-black");
+
+                    document.getElementById("admin-label").classList.add("text-slate-500");
+                    document.getElementById("admin-label").classList.remove("text-black");
+                  };
+
+          document.getElementById("admin-button").onclick = function() {
+                    admin_button.checked = true;
+                    document.getElementById("admin-label").classList.remove("text-slate-500");
+                    document.getElementById("admin-label").classList.add("text-black");
+
+                    document.getElementById("regular-label").classList.add("text-slate-500");
+                    document.getElementById("regular-label").classList.remove("text-black");
+                  };
+
+          admin_button.addEventListener("click", function() {
+          });
+
+          regular_button.addEventListener("click", function() {
+          });
+        </script>
+        <input type="hidden" name="member_index" value="{{member_index}}">
+      </div>
+			<button class="bg-blue-500 text-white rounded px-4 py-2" type="submit"> Save </button>
+    </form> 
+  </div>
+</body>
 </html>

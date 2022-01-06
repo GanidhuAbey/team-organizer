@@ -76,15 +76,15 @@
           var member_data = document.createElement("div");
           member_data.classList.add("memberData");
 
-          user_admin = true;
+          user_admin = data[i].role; //any non-zero number is evaluated as true in following if statement
           var member_name = document.createTextNode(data[i].first_name + " " + data[i].last_name);
           name_para.appendChild(member_name);
           if (user_admin) {
-              var admin_text = document.createTextNode(" (admin)");
-              name_para.appendChild(admin_text);
+            var admin_text = document.createTextNode(" (admin)");
+            name_para.appendChild(admin_text);
           }
           var phone_para = document.createElement("p");
-          var phone_number = document.createTextNode("999-999-999");
+          var phone_number = document.createTextNode(data[i].phone_number);
           phone_para.appendChild(phone_number);
           var email = document.createTextNode(data[i].email);
 
@@ -93,7 +93,6 @@
           member_data.appendChild(email);
 
           member_image = document.createElement("img");
-          image_url = "employees/images/" + data[i].profile_picture;
           member_image.src = "{% static 'employees/images/profile.webp' %}";
           member_image.classList.add("profilePicture");
         
@@ -117,7 +116,7 @@
           member_index.id = "member_index";
           member_index.type = "hidden";
           member_index.name = "member_index";
-          member_index.value = String(i + 1);
+          member_index.value = String(data[i].member_index);
 
           member_edit.appendChild(member_index);
           member_edit.appendChild(member_edit_button);
