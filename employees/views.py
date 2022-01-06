@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import ListView
 from django.urls import reverse
-from django.http import HttpResponse
+import phonenumbers
+
 
 #import model data
 from . import models
@@ -50,7 +51,9 @@ def edit_page(request):
             last_name = member.last_name;
             phone_number = member.phone_number;
             email = member.email;
-            role = member.role;
+            role = str(member.role);
+            if (role == "0"):
+                role = ""
             member_index = request.POST['member_index']
             return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "role" : role, "member_index" : member_index, "formData": update_member.errors.as_json()}) 
 
@@ -63,6 +66,8 @@ def edit_page(request):
     last_name = member.last_name;
     phone_number = member.phone_number;
     email = member.email;
-    role = member.role;
+    role = str(member.role);
+    if (role == "0"):
+        role = ""
     return render(request, 'edit.html', context={"fname" : first_name, "lname" : last_name, "email" : email, "pnum" : phone_number, "member_index" : member_index, "role" : role}) 
 

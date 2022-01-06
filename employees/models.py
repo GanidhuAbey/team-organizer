@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from django.core.validators import RegexValidator
 # Create your models here.
 
 class TeamMember(models.Model):
@@ -9,7 +10,8 @@ class TeamMember(models.Model):
     last_name = models.TextField(max_length=200)
 
     #not sure if we need to keep track of the internation code?
-    phone_number = models.IntegerField(default="0")
+    phone_regex = RegexValidator(regex=r'([+][0-9])?[-| ]?[0-9]{3}[-| ]?[0-9]{3}[-| ]?[0-9]{4}$', message="Invalid phone number")
+    phone_number = models.CharField(validators=[phone_regex], default="0", max_length=17)
     email = models.EmailField(max_length = 254, default="test@example.com")
 
     profile_picture = models.CharField(default='profile_icon.jpg', max_length=200)
